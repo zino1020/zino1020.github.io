@@ -4,6 +4,14 @@
   const canvas = document.querySelector("#pinball");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
+  const sprites = {
+    ball: new Image(),
+    block: new Image(),
+    missile: new Image(),
+  };
+  sprites.ball.src = "assets/pinball-ball.svg";
+  sprites.block.src = "assets/pinball-block.svg";
+  sprites.missile.src = "assets/pinball-missile.svg";
   const scoreEl = document.querySelector("#score");
   const highScoreEl = document.querySelector("#high-score");
   const growthEl = document.querySelector("#growth");
@@ -192,14 +200,18 @@
     ctx.fillStyle = "#0b0b11";
     ctx.fillRect(0, 0, width, height);
     blocks.forEach((block) => {
-      ctx.fillStyle = block.hp > 1 ? "#7c5cff" : "#ff4f8b";
-      ctx.fillRect(block.x, block.y, block.width, block.height);
+      if (sprites.block.complete) ctx.drawImage(sprites.block, block.x, block.y, block.width, block.height);
+      else { ctx.fillStyle = block.hp > 1 ? "#7c5cff" : "#ff4f8b"; ctx.fillRect(block.x, block.y, block.width, block.height); }
     });
     ctx.fillStyle = "#f5f5f7";
     ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
-    ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2); ctx.fill();
+    if (sprites.ball.complete) ctx.drawImage(sprites.ball, ball.x - ball.radius, ball.y - ball.radius, ball.radius * 2, ball.radius * 2);
+    else { ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2); ctx.fill(); }
     ctx.fillStyle = "#ffd166";
-    missiles.forEach((missile) => ctx.fillRect(missile.x - 2, missile.y - 8, 4, 12));
+    missiles.forEach((missile) => {
+      if (sprites.missile.complete) ctx.drawImage(sprites.missile, missile.x - 6, missile.y - 14, 12, 24);
+      else ctx.fillRect(missile.x - 2, missile.y - 8, 4, 12);
+    });
     fireworks.forEach((spark) => {
       ctx.globalAlpha = Math.max(0, spark.life / 50);
       ctx.fillStyle = spark.color;

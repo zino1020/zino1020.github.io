@@ -50,6 +50,7 @@ h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); max-width: 12ch; }
 .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 1.25rem; margin: 1rem 0; padding: clamp(1.25rem, 4vw, 2.5rem); }
 .panel p { color: var(--muted); margin-bottom: 0; }
 .game-shell { border-color: rgb(255 79 139 / 45%); }
+.game-art { border: 1px solid var(--border); border-radius: .9rem; display: block; margin: 0 0 1rem; max-height: 9rem; object-fit: cover; width: 100%; }
 .game-hud { display: flex; flex-wrap: wrap; gap: .75rem 1.25rem; margin-bottom: 1rem; }
 .game-hud span { color: var(--muted); }
 .game-hud strong { color: var(--text); }

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 180" role="img" aria-labelledby="title desc">
+  <title id="title">Neon pinball arcade</title>
+  <desc id="desc">A colorful pinball machine with glowing blocks and a launcher.</desc>
+  <defs><linearGradient id="bg" x1="0" x2="1"><stop stop-color="#171328"/><stop offset="1" stop-color="#321638"/></linearGradient><linearGradient id="pink" x1="0" x2="1"><stop stop-color="#ff4f8b"/><stop offset="1" stop-color="#ffd166"/></linearGradient></defs>
+  <rect width="900" height="180" rx="28" fill="url(#bg)"/>
+  <path d="M72 142 L142 28 H758 L828 142 Z" fill="#0b0b11" stroke="#7c5cff" stroke-width="6"/>
+  <g fill="url(#pink)"><rect x="218" y="48" width="70" height="22" rx="7"/><rect x="300" y="48" width="70" height="22" rx="7"/><rect x="382" y="48" width="70" height="22" rx="7"/><rect x="464" y="48" width="70" height="22" rx="7"/><rect x="546" y="48" width="70" height="22" rx="7"/></g>
+  <circle cx="470" cy="102" r="15" fill="#f5f5f7" stroke="#ffd166" stroke-width="6"/>
+  <path d="M330 140 L390 112 L450 140 M510 140 L570 112 L630 140" fill="none" stroke="#7fffd4" stroke-width="10" stroke-linecap="round"/>
+  <path d="M730 145 V92" stroke="#ff4f8b" stroke-width="12" stroke-linecap="round"/><path d="M730 92 l-12 20 h24z" fill="#ffd166"/>
+</svg>

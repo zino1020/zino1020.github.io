@@ -1,1 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><radialGradient id="ball"><stop stop-color="#fff"/><stop offset=".35" stop-color="#ffd166"/><stop offset="1" stop-color="#ff4f8b"/></radialGradient></defs><circle cx="16" cy="16" r="14" fill="url(#ball)" stroke="#fff" stroke-width="1.5"/><circle cx="11" cy="10" r="3" fill="#fff" opacity=".75"/></svg>

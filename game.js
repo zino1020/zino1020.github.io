@@ -9,6 +9,7 @@
   const growthEl = document.querySelector("#growth");
   const livesEl = document.querySelector("#lives");
   const statusEl = document.querySelector("#game-status");
+  const highScoreNoticeEl = document.querySelector("#high-score-notice");
   const recordEl = document.querySelector("#game-record");
   const startButton = document.querySelector("#start-game");
   const pauseButton = document.querySelector("#pause-game");
@@ -28,8 +29,13 @@
   let paused = false;
   let won = false;
   let animationFrameId = 0;
+  let countdownTimer = 0;
+  let countdownValue = 0;
+  let countdownActive = false;
   let lastDirection = 0;
   let fireAt = 0;
+  let highScoreNoticeUntil = 0;
+  let fireworks = [];
 
   highScoreEl.textContent = String(highScore);
 
@@ -56,12 +62,18 @@
   }
 
   function resetGame() {
+    window.clearInterval(countdownTimer);
+    countdownActive = false;
+    countdownValue = 0;
     blocks = createBlocks();
     missiles = [];
     score = 0;
     growth = 1;
     lives = 3;
     won = false;
+    highScoreNoticeUntil = 0;
+    if (highScoreNoticeEl) highScoreNoticeEl.textContent = "";
+    fireworks = [];
     paused = false;
     resetBall();
     updateHud();
@@ -97,11 +109,43 @@
     if (score > highScore) {
       highScore = score;
       localStorage.setItem("pinball-high-score", String(highScore));
+      highScoreNoticeUntil = performance.now() + 2600;
+      if (highScoreNoticeEl) highScoreNoticeEl.textContent = "최고 점수 갱신! 🎆";
+      createFireworks();
     }
     growth = 1 + Math.floor((32 - blocks.length) / 5);
     updateHud();
     if (blocks.length === 0) finishGame(true);
     return true;
+  }
+
+  function createFireworks() {
+    const colors = ["#ff4f8b", "#7c5cff", "#ffd166", "#7fffd4"];
+    for (let burst = 0; burst < 3; burst += 1) {
+      const originX = width * (0.25 + burst * 0.25);
+      const originY = height * (0.25 + (burst % 2) * 0.16);
+      for (let i = 0; i < 18; i += 1) {
+        const angle = (Math.PI * 2 * i) / 18;
+        fireworks.push({ x: originX, y: originY, vx: Math.cos(angle) * (1.2 + burst * .25), vy: Math.sin(angle) * (1.2 + burst * .25), life: 45 + burst * 8, color: colors[(i + burst) % colors.length] });
+      }
+    }
+  }
+
+  function updateFireworks() {
+    fireworks = fireworks.filter((spark) => {
+      spark.x += spark.vx;
+      spark.y += spark.vy;
+      spark.vy += .025;
+      spark.life -= 1;
+      return spark.life > 0;
+    });
+  }
+
+  function updateHighScoreNotice() {
+    if (highScoreNoticeUntil && performance.now() >= highScoreNoticeUntil) {
+      highScoreNoticeUntil = 0;
+      if (highScoreNoticeEl) highScoreNoticeEl.textContent = "";
+    }
   }
 
   function overlapsCircleRect(circle, rect) {
@@ -156,15 +200,39 @@
     ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = "#ffd166";
     missiles.forEach((missile) => ctx.fillRect(missile.x - 2, missile.y - 8, 4, 12));
-    if (paused || won || !running) {
+    fireworks.forEach((spark) => {
+      ctx.globalAlpha = Math.max(0, spark.life / 50);
+      ctx.fillStyle = spark.color;
+      ctx.fillRect(spark.x, spark.y, 3, 3);
+    });
+    ctx.globalAlpha = 1;
+    if (paused || won || !running || countdownActive) {
       ctx.fillStyle = "rgb(16 16 20 / 74%)";
       ctx.fillRect(0, 0, width, height);
+      let message = "";
+      if (countdownActive) message = String(countdownValue);
+      else if (won) message = "블럭 격파 완료! 🎉";
+      else if (!running && lives <= 0) message = "GAME OVER";
+      if (message) {
+        const pulse = 1 + Math.sin(performance.now() / 120) * .04;
+        ctx.save();
+        ctx.translate(width / 2, height / 2);
+        ctx.scale(pulse, pulse);
+        ctx.fillStyle = "#f5f5f7";
+        ctx.font = "700 34px sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(message, 0, 0);
+        ctx.restore();
+      }
     }
   }
 
   function loop() {
-    if (!running) return;
-    if (!paused && !won) update();
+    if (!running && fireworks.length === 0 && performance.now() >= highScoreNoticeUntil && !countdownActive) return;
+    if (running && !paused && !won && !countdownActive) update();
+    updateFireworks();
+    updateHighScoreNotice();
     draw();
     animationFrameId = requestAnimationFrame(loop);
   }
@@ -184,14 +252,26 @@
   }
 
   function startGame() {
-    if (running) return;
+    if (running || countdownActive) return;
     if (won || lives <= 0 || blocks.length === 0) resetGame();
     running = true;
     paused = false;
+    countdownValue = 3;
+    countdownActive = true;
     pauseButton.disabled = false;
     pauseButton.textContent = "일시정지";
     cancelAnimationFrame(animationFrameId);
     animationFrameId = requestAnimationFrame(loop);
+    window.clearInterval(countdownTimer);
+    countdownTimer = window.setInterval(() => {
+      countdownValue -= 1;
+      if (countdownValue <= 0) {
+        window.clearInterval(countdownTimer);
+        countdownActive = false;
+        setStatus("플레이 중 — 블럭을 모두 제거하세요!");
+      }
+    }, 700);
+    setStatus("잠시 후 시작합니다!");
   }
 
   startButton.addEventListener("click", startGame);

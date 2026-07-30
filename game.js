@@ -9,6 +9,7 @@
   const growthEl = document.querySelector("#growth");
   const livesEl = document.querySelector("#lives");
   const statusEl = document.querySelector("#game-status");
+  const recordEl = document.querySelector("#game-record");
   const startButton = document.querySelector("#start-game");
   const pauseButton = document.querySelector("#pause-game");
   const restartButton = document.querySelector("#restart-game");
@@ -172,7 +173,12 @@
     won = success;
     running = false;
     pauseButton.disabled = true;
-    if (success) setStatus("블럭 격파 완료! 핀볼 영웅 등극, 공도 미사일도 오늘은 네 편이야! 🎉");
+    if (success) {
+      const record = `최고 기록 ${score}점 — 블럭 격파 성공! 🎉`;
+      setStatus("블럭 격파 완료! 핀볼 영웅 등극, 공도 미사일도 오늘은 네 편이야! 🎉");
+      localStorage.setItem("pinball-last-record", record);
+      if (recordEl) recordEl.textContent = record;
+    }
     else setStatus("게임 오버 — 재시작하고 다시 도전하세요.");
     draw();
   }

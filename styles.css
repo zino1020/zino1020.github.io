@@ -70,6 +70,10 @@ h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); max-width: 12ch; }
 .game-record { border-top: 1px solid var(--border); margin-top: 1.25rem; padding-top: 1rem; }
 .game-record h3 { font-size: 1rem; margin: 0; }
 .game-record p { margin-top: .35rem; }
+.drive-scene { border-color: rgb(255 209 102 / 35%); overflow: hidden; }
+.drive-frame { background: #171522; border: 1px solid var(--border); border-radius: .9rem; overflow: hidden; }
+#drive-canvas { display: block; height: auto; max-width: 100%; width: 100%; }
+.drive-caption { font-size: .9rem; margin-top: .75rem; }
 .site-footer { color: var(--muted); padding: 2rem 1rem; text-align: center; }
 @media (max-width: 48rem) {
   .site-header { align-items: flex-start; flex-direction: column; gap: .75rem; }

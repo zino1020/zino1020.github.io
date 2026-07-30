@@ -65,12 +65,6 @@ h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); max-width: 12ch; }
 .game-record { border-top: 1px solid var(--border); margin-top: 1.25rem; padding-top: 1rem; }
 .game-record h3 { font-size: 1rem; margin: 0; }
 .game-record p { margin-top: .35rem; }
-.guestbook-form { display: grid; gap: .5rem; margin-top: 1rem; max-width: 34rem; }
-.guestbook-form input, .guestbook-form textarea { background: #111119; border: 1px solid var(--border); border-radius: .6rem; color: var(--text); padding: .7rem; }
-.guestbook-form button { background: var(--accent); border: 0; border-radius: .6rem; color: #210b15; cursor: pointer; font-weight: 700; margin-top: .25rem; padding: .7rem 1rem; }
-.guestbook-list { display: grid; gap: .65rem; list-style: none; margin: 1.25rem 0 0; max-width: 42rem; padding: 0; }
-.guestbook-list li { background: var(--surface-2); border-radius: .65rem; padding: .7rem .85rem; }
-.guestbook-list strong { color: var(--accent); margin-right: .45rem; }
 .site-footer { color: var(--muted); padding: 2rem 1rem; text-align: center; }
 @media (max-width: 48rem) {
   .site-header { align-items: flex-start; flex-direction: column; gap: .75rem; }

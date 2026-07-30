@@ -3,16 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="반응형 다크 테마 프로페셔널 웹사이트">
-    <title>프로페셔널 스페이스</title>
+    <meta name="description" content="A responsive dark professional website">
+    <title>Professional Space</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
     <script src="game.js" defer></script>
   </head>
   <body>
     <header class="site-header">
-        <a class="brand" href="#home" aria-label="홈으로 이동">프로페셔널 스페이스</a>
-      <nav aria-label="주요 메뉴">
+        <a class="brand" href="#home" aria-label="Go to home">Professional Space</a>
+      <nav aria-label="Main menu">
         <a href="#games">Games</a>
       </nav>
     </header>
@@ -20,52 +20,52 @@
     <main id="home" class="container">
       <section class="hero" aria-labelledby="hero-title">
         <p class="eyebrow">WELCOME</p>
-        <h1 id="hero-title">아이디어를 경험으로 만듭니다.</h1>
-        <img class="hero-art hero-gif" src="assets/welcome-orbit.gif" alt="Welcome 영역에서 회전하는 네온 궤도 그래픽">
+        <h1 id="hero-title">Turning ideas into experiences.</h1>
+        <img class="hero-art hero-gif" src="assets/welcome-orbit.gif" alt="Rotating neon orbit graphic">
       </section>
 
       <section id="games" class="panel game-shell" aria-labelledby="games-title">
         <p class="eyebrow">GAMES</p>
-        <h2 id="games-title">핀볼 아케이드</h2>
-        <img class="game-art" src="assets/pinball-neon.svg" alt="네온 핀볼 아케이드 일러스트">
+        <h2 id="games-title">Pinball Arcade</h2>
+        <img class="game-art" src="assets/pinball-neon.svg" alt="Neon pinball arcade illustration">
         <div class="game-hud" aria-live="polite">
-          <span>점수 <strong id="score">0</strong></span>
-          <span>최고 <strong id="high-score">0</strong></span>
-          <span>성장 <strong id="growth">1</strong>x</span>
-          <span>목숨 <strong id="lives">3</strong></span>
-          <span id="game-status">시작 버튼을 눌러 플레이</span>
+          <span>Score <strong id="score">0</strong></span>
+          <span>Best <strong id="high-score">0</strong></span>
+          <span>Growth <strong id="growth">1</strong>x</span>
+          <span>Lives <strong id="lives">3</strong></span>
+          <span id="game-status">Press Start to play</span>
           <span id="high-score-notice" class="high-score-notice" aria-live="polite"></span>
         </div>
         <div class="game-board-wrap">
-          <canvas id="pinball" width="720" height="420" aria-label="핀볼 게임 보드"></canvas>
+          <canvas id="pinball" width="720" height="420" aria-label="Pinball game board"></canvas>
         </div>
-        <div class="game-actions" aria-label="게임 제어">
-          <button id="start-game" type="button">시작</button>
-          <button id="pause-game" type="button" disabled>일시정지</button>
-          <button id="restart-game" type="button">재시작</button>
+        <div class="game-actions" aria-label="Game controls">
+          <button id="start-game" type="button">Start</button>
+          <button id="pause-game" type="button" disabled>Pause</button>
+          <button id="restart-game" type="button">Restart</button>
         </div>
-        <div class="touch-controls" aria-label="모바일 핀볼 조작">
-          <button type="button" data-direction="left" aria-label="왼쪽 이동">◀</button>
-          <button type="button" data-fire aria-label="미사일 발사">발사</button>
-          <button type="button" data-direction="right" aria-label="오른쪽 이동">▶</button>
+        <div class="touch-controls" aria-label="Mobile pinball controls">
+          <button type="button" data-direction="left" aria-label="Move left">◀</button>
+          <button type="button" data-fire aria-label="Fire missile">Fire</button>
+          <button type="button" data-direction="right" aria-label="Move right">▶</button>
         </div>
-        <p class="game-help">이동: 방향키 또는 WASD · 미사일: Space/마우스 클릭/발사 버튼</p>
+        <p class="game-help">Move: Arrow keys or WASD · Missile: Space, mouse click, or Fire</p>
         <div class="game-record" aria-live="polite">
-          <h3>게임 기록</h3>
-          <p id="game-record">아직 기록이 없습니다. 첫 블럭 격파에 도전하세요!</p>
+          <h3>Game Record</h3>
+          <p id="game-record">No record yet. Take your first block down!</p>
         </div>
       </section>
 
       <section class="panel drive-scene" aria-labelledby="drive-title">
         <p class="eyebrow">MOTION STUDY</p>
-        <h2 id="drive-title">저녁 도로를 달리는 순간</h2>
+        <h2 id="drive-title">A Moment on the Evening Road</h2>
         <div class="drive-frame">
-          <canvas id="drive-canvas" width="960" height="360" aria-label="노을 속 도로를 달리는 자동차 애니메이션"></canvas>
+          <canvas id="drive-canvas" width="960" height="360" aria-label="Car driving through a sunset landscape animation"></canvas>
         </div>
       </section>
 
     </main>
 
-    <footer class="site-footer">정적 웹사이트 · 인터랙티브 경험</footer>
+    <footer class="site-footer">Static website · Interactive experiences</footer>
   </body>
 </html>

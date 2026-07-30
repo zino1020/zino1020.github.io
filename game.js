@@ -85,7 +85,7 @@
     paused = false;
     resetBall();
     updateHud();
-    setStatus("플레이 중 — 블럭을 모두 제거하세요!");
+    setStatus("Playing — clear every block!");
   }
 
   function updateHud() {
@@ -118,7 +118,7 @@
       highScore = score;
       localStorage.setItem("pinball-high-score", String(highScore));
       highScoreNoticeUntil = performance.now() + 2600;
-      if (highScoreNoticeEl) highScoreNoticeEl.textContent = "최고 점수 갱신! 🎆";
+      if (highScoreNoticeEl) highScoreNoticeEl.textContent = "New high score! 🎆";
       createFireworks();
     }
     growth = 1 + Math.floor((32 - blocks.length) / 5);
@@ -223,7 +223,7 @@
       ctx.fillRect(0, 0, width, height);
       let message = "";
       if (countdownActive) message = String(countdownValue);
-      else if (won) message = "블럭 격파 완료! 🎉";
+      else if (won) message = "All blocks cleared! 🎉";
       else if (!running && lives <= 0) message = "GAME OVER";
       if (message) {
         const pulse = 1 + Math.sin(performance.now() / 120) * .04;
@@ -254,12 +254,12 @@
     running = false;
     pauseButton.disabled = true;
     if (success) {
-      const record = `최고 기록 ${score}점 — 블럭 격파 성공! 🎉`;
-      setStatus("블럭 격파 완료! 핀볼 영웅 등극, 공도 미사일도 오늘은 네 편이야! 🎉");
+      const record = `Best record: ${score} points — blocks defeated! 🎉`;
+      setStatus("All blocks cleared! You are a pinball hero — the ball and missiles are cheering for you! 🎉");
       localStorage.setItem("pinball-last-record", record);
       if (recordEl) recordEl.textContent = record;
     }
-    else setStatus("게임 오버 — 재시작하고 다시 도전하세요.");
+    else setStatus("Game over — restart and try again.");
     draw();
   }
 
@@ -271,7 +271,7 @@
     countdownValue = 3;
     countdownActive = true;
     pauseButton.disabled = false;
-    pauseButton.textContent = "일시정지";
+    pauseButton.textContent = "Pause";
     cancelAnimationFrame(animationFrameId);
     animationFrameId = requestAnimationFrame(loop);
     window.clearInterval(countdownTimer);
@@ -280,15 +280,15 @@
       if (countdownValue <= 0) {
         window.clearInterval(countdownTimer);
         countdownActive = false;
-        setStatus("플레이 중 — 블럭을 모두 제거하세요!");
+        setStatus("Playing — clear every block!");
       }
     }, 700);
-    setStatus("잠시 후 시작합니다!");
+    setStatus("Starting shortly!");
   }
 
   startButton.addEventListener("click", startGame);
   restartButton.addEventListener("click", () => { running = false; cancelAnimationFrame(animationFrameId); resetGame(); draw(); startGame(); });
-  pauseButton.addEventListener("click", () => { if (!running) return; paused = !paused; pauseButton.textContent = paused ? "계속하기" : "일시정지"; setStatus(paused ? "일시정지" : "플레이 중 — 블럭을 모두 제거하세요!"); });
+  pauseButton.addEventListener("click", () => { if (!running) return; paused = !paused; pauseButton.textContent = paused ? "Resume" : "Pause"; setStatus(paused ? "Paused" : "Playing — clear every block!"); });
   canvas.addEventListener("click", fireMissile);
   window.addEventListener("keydown", (event) => {
     const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
